@@ -1,5 +1,7 @@
 # chat-vip
-Interactuar con un LLM mediante personajes famosos con sus voces clonadas
+Interactuar con un LLM mediante personajes famosos con sus voces clonadas.
+
+<img width="717" alt="Captura de pantalla 2025-06-18 a las 14 35 54" src="https://github.com/user-attachments/assets/00fafc74-eb99-4469-90bd-d545800602e0" />
 
 Uso:
 1. pulsamos "Habilitar audio" para confirmar que el navegador nos permitirá emitir sonido.
