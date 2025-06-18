@@ -1,0 +1,4 @@
+        # /ollama
+        ProxyPass        /ollama http://localhost:11434
+        ProxyPassReverse /ollama http://localhost:11434
+

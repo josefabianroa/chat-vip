@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chatea con un VIP Web</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🎤 Chatea con un VIP</h1>
+    <label for="voiceSelect">Elige personaje:</label>
+    <select id="voiceSelect">
+	<option value="voice_id 1" data-model="simba-multilingual">vip 1</option>
+	<option value="voice_id 2" data-model="simba-english">vip 2</option>
+    </select>
+
+    <button id="audioBtn">🔊 Habilitar audio</button><br><br>
+    <button id="startBtn">🎙️ Empezar a escuchar</button>
+    <button id="stopBtn">🛑 Detener escucha</button>
+
+    <p id="transcript">Escucha detenida</p>
+
+    <label for="escuchado">Texto escuchado:</label><br>
+    <textarea id="escuchado" rows="3" cols="60" readonly></textarea><br><br>
+
+    <button id="playBtn">🔊 Reproducir respuesta</button>
+
+    <label for="respuesta">Respuesta del VIP:</label><br>
+    <textarea id="respuesta" rows="6" cols="60" readonly></textarea><br><br>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
