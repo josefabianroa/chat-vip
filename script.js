@@ -21,9 +21,7 @@ let escuchando = false;
 let recibidoAudio = false;
 
 const checkAudioInterval = setInterval(() => {
-  if (recibidoAudio) {
-    setBotonEstado(true);
-  }
+  setBotonEstado(recibidoAudio);
 }, 500);
 
 if (!('webkitSpeechRecognition' in window)) {
@@ -35,9 +33,10 @@ if (!('webkitSpeechRecognition' in window)) {
   recognition.interimResults = false;
   recognition.maxAlternatives = 1;
 
-
   recognition.onresult = async (event) => {
     const texto = event.results[event.results.length - 1][0].transcript;
+
+    recibidoAudio = false;
 
     document.getElementById("escuchado").value = texto;
     //transcriptEl.textContent = `🔊 ${texto}`;
@@ -45,24 +44,24 @@ if (!('webkitSpeechRecognition' in window)) {
     try {
       transcriptEl.textContent = "Escucha detenida";
 
-      console.log("pensando...");
+      console.log(new Date().toLocaleString(), "pensando...");
       await new Promise(resolve => setTimeout(resolve, 0)); // fuerza repintado
 
       const respuesta = await enviarAOllama(texto);
 
-      console.log("tts...");
+      console.log(new Date().toLocaleString(), "tts...");
       // esto cuesta dinero 
       await reproducirConSpeechify(respuesta);
 
-      console.log("listo para reproducir");
+      console.log(new Date().toLocaleString(), "listo para reproducir");
     }
     catch (err) {
-      console.error("Error procesando texto con Ollama o reproduciendo:", err);
+      console.error(new Date().toLocaleString(), "Error procesando texto con Ollama o reproduciendo:", err);
     }
   };
 
   recognition.onerror = (event) => {
-    console.error("Error de reconocimiento:", event.error);
+    console.error(new Date().toLocaleString(), "Error de reconocimiento:", event.error);
   };
 
   recognition.onend = () => {
@@ -74,7 +73,7 @@ if (!('webkitSpeechRecognition' in window)) {
       // reinicio manual
       escuchando = false;
       transcriptEl.textContent = "Escucha detenida";
-      console.log("escucha detenida onend");
+      console.log(new Date().toLocaleString(), "escucha detenida onend");
     }
   };
 }
@@ -94,7 +93,7 @@ startBtn.addEventListener("click", () => {
 
       recognition.start();
       escuchando = true;
-      console.log("escucha iniciada");
+      console.log(new Date().toLocaleString(), "escucha iniciada");
     }
   }
 });
@@ -103,7 +102,7 @@ document.getElementById("stopBtn").onclick = () => {
   if (escuchando) {
     recognition.stop();
     escuchando = false;
-    console.log("escucha detenida por el usuario");
+    console.log(new Date().toLocaleString(), "escucha detenida por el usuario");
 
     document.getElementById("escuchado").value = "";
     document.getElementById("respuesta").value = "";
@@ -115,7 +114,7 @@ async function enviarAOllama(texto) {
 
   const selectVip = document.getElementById("voiceSelect");
   const vip = selectVip.options[selectVip.selectedIndex].text;
-  console.log("vip elegido: ", vip); // Ejemplo: "Español - Voz A"
+  console.log(new Date().toLocaleString(), "vip elegido: ", vip); // Ejemplo: "Español - Voz A"
 
   const textoVip = "asume la personalidad de " + vip + ", y contesta brevemente esta pregunta: " + texto;
 
@@ -141,10 +140,10 @@ async function enviarAOllama(texto) {
     const data = await response.json();
 
     respuesta = data.message?.content || "Sin respuesta";
-    console.log("respuesta ", respuesta);
+    console.log(new Date().toLocaleString(), "respuesta ", respuesta);
 
     respuesta = respuesta.replace(/\s*\([^)]*\)/g, '');
-    console.log("respuestaLimpia ", respuesta);
+    console.log(new Date().toLocaleString(), "respuestaLimpia ", respuesta);
 
     // ✅ Mostrar en la caja de texto
     document.getElementById("respuesta").value = respuesta;
@@ -152,7 +151,7 @@ async function enviarAOllama(texto) {
     return respuesta;
 
   } catch (error) {
-    console.error("Error enviando a Ollama:", error);
+    console.error(new Date().toLocaleString(), "Error enviando a Ollama:", error);
     return null;
   }
 }
@@ -162,7 +161,7 @@ let audioUrlAnterior = null;
 
 async function reproducirConSpeechify(texto) {
 
-  recibidoAudio = false;
+  //recibidoAudio = false;
 
   const playBtn = document.getElementById('playBtn');
 
@@ -173,7 +172,7 @@ async function reproducirConSpeechify(texto) {
 
   base64Audio = null
 
-  console.log("solicitamos TTS ", voice, modelo, texto);
+  console.log(new Date().toLocaleString(), "solicitamos TTS ", voice, modelo, texto);
 
   fetch('tts.php', {
     method: 'POST',
@@ -186,11 +185,11 @@ async function reproducirConSpeechify(texto) {
   })
   .then(res => res.json())
   .then(data => {
-    console.log("✅ recibido tts");
+    console.log(new Date().toLocaleString(), "✅ recibido tts");
     const base64Audio = data.audio_data;
-    console.log("Longitud base64:", base64Audio.length);
-    console.log(typeof base64Audio);
-    console.log("Inicio de base64Audio:", base64Audio.substring(0, 100));
+    console.log(new Date().toLocaleString(), "Longitud base64:", base64Audio.length);
+    console.log(new Date().toLocaleString(), typeof base64Audio);
+    console.log(new Date().toLocaleString(), "Inicio de base64Audio:", base64Audio.substring(0, 100));
 
     // ⏹️ Detener cualquier reproducción anterior
     if (audioActual) {
@@ -208,8 +207,8 @@ async function reproducirConSpeechify(texto) {
 
     // 🎧 Crear blob y reproducir
     const blob = new Blob([byteArray], { type: "audio/wav" });
-    console.log("Blob size:", blob.size);
-    console.log("Blob type:", blob.type);
+    console.log(new Date().toLocaleString(), "Blob size:", blob.size);
+    console.log(new Date().toLocaleString(), "Blob type:", blob.type);
 
     const audioUrl = URL.createObjectURL(blob);
     audioUrlAnterior = audioUrl;
@@ -219,16 +218,16 @@ async function reproducirConSpeechify(texto) {
     recibidoAudio = true;
   })
   .catch(err => {
-    console.error("❌ error tts ", err);
+    console.error(new Date().toLocaleString(), "❌ error tts ", err);
   });
 
   playBtn.onclick = () => {
     playBtn.textContent = '⏳ Reproduciendo...';
 
-    console.log("Audio src:", audioActual.src);
+    console.log(new Date().toLocaleString(), "Audio src:", audioActual.src);
 
     audioActual.play().catch(err => {
-      console.error("Error al reproducir:", err);
+      console.error(new Date().toLocaleString(), "Error al reproducir:", err);
       playBtn.textContent = '🔊 Reproducir respuesta';
     });
 
@@ -240,6 +239,9 @@ async function reproducirConSpeechify(texto) {
 }
 
 document.getElementById("audioBtn").onclick = () => {
+
+  console.log(new Date().toLocaleString(), "pulsado audioBtn");
+
   // Crear un contexto de audio
   const ctx = new (window.AudioContext || window.webkitAudioContext)();
   const osc = ctx.createOscillator();
@@ -252,8 +254,52 @@ document.getElementById("audioBtn").onclick = () => {
   osc.stop(ctx.currentTime + 0.2); // sonido de 0.2 segundos
 
   // También sirve para desbloquear SpeechSynthesis
-  const msg = new SpeechSynthesisUtterance("Audio habilitado");
+  const msg = new SpeechSynthesisUtterance("Audio activado");
   msg.lang = "es-ES";
   speechSynthesis.speak(msg);
 };
 
+document.getElementById("llmBtn").onclick = () => {
+
+  console.log(new Date().toLocaleString(), "pulsado llmBtn");
+
+  document.getElementById("respuesta").value = "";
+  testOllama();
+}
+
+async function testOllama() {
+
+  try {
+    const response = await fetch("/ollama/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+	model: "gemma3:latest", // Cambia por el modelo que uses
+	stream: false,
+        messages: [
+          { role: "user", content: "Hola" }
+        ]
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error("Error en la respuesta de Ollama: " + response.statusText);
+    }
+
+    const data = await response.json();
+
+    respuesta = data.message?.content || "Sin respuesta";
+    console.log(new Date().toLocaleString(), "respuesta ", respuesta);
+
+    // ✅ Mostrar en la caja de texto
+    document.getElementById("respuesta").value = respuesta;
+
+    return respuesta;
+
+  } catch (error) {
+    console.error(new Date().toLocaleString(), "Error enviando a Ollama:", error);
+    return null;
+  }
+}
