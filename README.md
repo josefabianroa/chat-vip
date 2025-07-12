@@ -1,19 +1,21 @@
 # chat-vip
 Interactuar con un LLM mediante personajes famosos con sus voces clonadas.
 
-<img width="717" alt="Captura de pantalla 2025-06-18 a las 14 35 54" src="https://github.com/user-attachments/assets/00fafc74-eb99-4469-90bd-d545800602e0" />
+<img width="555" height="681" alt="Captura de pantalla 2025-07-12 a las 16 31 13" src="https://github.com/user-attachments/assets/eb233254-9a8f-4760-9b61-8145bd782cfd" />
 
 Uso:
-1. pulsamos "Habilitar audio" para confirmar que el navegador nos permitirá emitir sonido.
-2. elegimos el personaje.
-3. pulsamos el botón "Empezar a escuchar". Si la página pide permiso para utilizar el micrófono, aceptamos.
-4. cuando hayamos terminado la frase, lo escuchado aparece en la caja "Texto escuchado".
-5. a continuación, se produce la consulta al LLM. El resultado aparece en la caja "Respuesta del VIP".
-6. cuando la página haya recibido el audio correspondiente a ese texto, el botón "Reproducir respuesta" se habilita.
-7. al pulsarlo, escucharemos la respuesta en la voz del personaje elegido.
-8. podemos interrumpir la locución de la respuesta pulsando "Empezar a escuchar".
-9. podemos repetir la locución pulsando de nuevo "Reproducir respuesta".
-10. podemos detener la escucha pulsando "Detener escucha".
+1. pulsamos "Activar audio" para confirmar que el navegador nos permitirá emitir sonido.
+2. pulsamos "Activar VIP" para confirmar que el LLM está funcionando.
+3. pulsamos "Activar lectura en voz alta" para confirmar que queremos escuchar la voz, además de ver el texto de la respuesta.
+4. elegimos el personaje. Tanto en voz como en personalidad.
+5. pulsamos el botón "Empezar a escuchar". Si la página pide permiso para utilizar el micrófono, aceptamos.
+6. cuando hayamos terminado la frase, lo escuchado aparece en la caja "Texto escuchado".
+7. a continuación, se produce la consulta al LLM. El resultado aparece en la caja "Respuesta del VIP".
+8. cuando la página haya recibido el audio correspondiente a ese texto, el botón "Reproducir respuesta" se habilita.
+9. al pulsarlo, escucharemos la respuesta en la voz del personaje elegido.
+10. podemos interrumpir la locución de la respuesta pulsando "Empezar a escuchar".
+11. podemos repetir la locución pulsando de nuevo "Reproducir respuesta".
+12. podemos detener la escucha pulsando "Detener escucha".
 
 Para el LLM usamos Ollama con Gemma3, por ejemplo.
 
