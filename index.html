@@ -8,8 +8,9 @@
 </head>
 <body>
   <div class="container">
-    <h1>🎤 Chatea con un VIP</h1>
-    <label for="voiceSelect">Elige personaje:</label>
+    <h1>🎤 Chatea con un VIP v1.1</h1>
+    <p>
+    <label for="voiceSelect">Elige voz:</label>
     <select id="voiceSelect">
       <option value="dd65ba97-c5b5-4df0-a57f-0731e1e7aa99" data-model="simba-multilingual">Stitch, personaje de Disney</option>
       <option value="725a167b-ab87-4c44-96c1-6e68f808ec28" data-model="simba-english">CR7, futbolista</option>
@@ -20,10 +21,29 @@
       <option value="670c9bf8-3a69-4402-a590-5b866b173fbd" data-model="simba-multilingual">Efigenio Amezua, psicólogo y sexólogo</option>
       <option value="2b5aaf68-3aae-4d35-9eb9-2cc83a64ba82" data-model="simba-multilingual">Francisco Franco, dictador español</option>
     </select>
-
+    </p>
     <p>
-    <button id="audioBtn">Activar audio</button>
+    <label for="mindSelect">Elige personalidad:</label>
+    <select id="mindSelect">
+      <option>Stitch, personaje de Disney</option>
+      <option>CR7, futbolista</option>
+      <option>Simeone, entrenador de fútbol</option>
+      <option>Aitana, cantante pop</option>
+      <option>Yoda, maestro jedi</option>
+      <option>Julia, directora de un colegio</option>
+      <option>Efigenio Amezua, psicólogo y sexólogo</option>
+      <option>Francisco Franco, dictador español</option>
+    </select>
+    </p>
+    <p>
     <button id="llmBtn">Activar VIP</button>
+    <button id="audioBtn">Activar audio</button>
+    </p>
+    <p> 
+    <label>
+      <input type="checkbox" id="activarSpeechify">
+      Activar lectura en voz alta
+    </label>
     </p>
     <p>
     <button id="startBtn">🎙️ Empezar a escuchar</button>
@@ -34,7 +54,9 @@
     <label for="escuchado">Texto escuchado:</label><br>
     <textarea id="escuchado" rows="3" cols="60" readonly></textarea><br><br>
 
+    <p>
     <button id="playBtn">🔊 Reproducir respuesta</button>
+    </p>
 
     <label for="respuesta">Respuesta del VIP:</label><br>
     <textarea id="respuesta" rows="6" cols="60" readonly></textarea><br><br>

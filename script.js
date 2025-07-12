@@ -112,11 +112,13 @@ document.getElementById("stopBtn").onclick = () => {
 
 async function enviarAOllama(texto) {
 
-  const selectVip = document.getElementById("voiceSelect");
-  const vip = selectVip.options[selectVip.selectedIndex].text;
-  console.log(new Date().toLocaleString(), "vip elegido: ", vip); // Ejemplo: "Español - Voz A"
+  const selectVip  = document.getElementById("voiceSelect");
+  const selectMind = document.getElementById("mindSelect");
+  const vip  = selectVip.options[selectVip.selectedIndex].text;
+  const mind = selectMind.options[selectMind.selectedIndex].text;
+  console.log(new Date().toLocaleString(), "voz elegida: ", vip, " para personalidad: ", mind); // Ejemplo: "Español - Voz A"
 
-  const textoVip = "asume la personalidad de " + vip + ", y contesta brevemente esta pregunta: " + texto;
+  const textoVip = "asume la personalidad de " + mind + ", y contesta brevemente esta pregunta: " + texto;
 
   try {
     const response = await fetch("/ollama/api/chat", {
@@ -160,6 +162,13 @@ let audioActual = null;
 let audioUrlAnterior = null;
 
 async function reproducirConSpeechify(texto) {
+
+  const usarSpeechify = document.getElementById("activarSpeechify").checked;
+
+  if (!usarSpeechify) {
+    console.log("Speechify desactivado por el usuario.");
+    return;
+  }
 
   //recibidoAudio = false;
 
